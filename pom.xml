@@ -4,7 +4,7 @@
   <groupId>za.co.kmotsepe</groupId>
   <artifactId>tasuku</artifactId>
   <packaging>jar</packaging>
-  <version>1.0-SNAPSHOT</version>
+  <version>0.1-ALPHA</version>
   <name>tasuku</name>
   <url>http://maven.apache.org</url>
   
