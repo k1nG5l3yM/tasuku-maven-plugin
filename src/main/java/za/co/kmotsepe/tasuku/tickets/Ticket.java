@@ -4,9 +4,9 @@
 package za.co.kmotsepe.tasuku.tickets;
 
 /**
- *
  * @author Kingsley Motsepe
+ * @param <T>
  */
-public interface Type {
+public interface Ticket<T> {
 
 }

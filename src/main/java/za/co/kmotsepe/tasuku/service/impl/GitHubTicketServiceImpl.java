@@ -1,3 +1,6 @@
+/**
+ * various service layers for interacting/integration with online service
+ */
 package za.co.kmotsepe.tasuku.service.impl;
 
 import com.jcabi.github.Coordinates;
@@ -11,18 +14,49 @@ import java.util.ArrayList;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import lombok.Getter;
+import lombok.Setter;
 
 import za.co.kmotsepe.tasuku.service.TicketService;
 import za.co.kmotsepe.tasuku.tickets.Ticket;
 import za.co.kmotsepe.tasuku.tickets.impl.GitHubTicketBuilder;
 import za.co.kmotsepe.tasuku.util.PropertiesLoader;
 
+/**
+ * Ticket service for creating github based tickets
+ *
+ * @author Kingsley Motsepe
+ */
 public class GitHubTicketServiceImpl implements TicketService {
 
-    GitHubTicketBuilder gitHubTicketBuilder;
-    ArrayList gitHubIssueLabels;
-    Properties properties;
+    /**
+     * Ticket builder for the github service
+     */
+    @Getter
+    @Setter
+    private GitHubTicketBuilder gitHubTicketBuilder;
 
+    /**
+     * issue labels
+     */
+    @Getter
+    @Setter
+    private ArrayList gitHubIssueLabels;
+
+    /**
+     * application properties
+     */
+    private Properties properties;
+
+    /**
+     * list of github tickets
+     */
+    private ArrayList<Ticket> githubTickets;
+
+    /**
+     *
+     * @throws IOException
+     */
     public GitHubTicketServiceImpl() throws IOException {
         properties = PropertiesLoader.getInstance().loadProperties();
     }
@@ -31,7 +65,7 @@ public class GitHubTicketServiceImpl implements TicketService {
      *
      * @param gitHubTicket
      */
-    public GitHubTicketServiceImpl(Ticket gitHubTicket) {
+    public GitHubTicketServiceImpl(final Ticket gitHubTicket) {
 
     }
 
@@ -39,7 +73,7 @@ public class GitHubTicketServiceImpl implements TicketService {
      *
      * @param gitHubTickets
      */
-    public GitHubTicketServiceImpl(ArrayList<Ticket> gitHubTickets) {
+    public GitHubTicketServiceImpl(final ArrayList<Ticket> gitHubTickets) {
 
     }
 
@@ -48,14 +82,14 @@ public class GitHubTicketServiceImpl implements TicketService {
      * @param ticket
      */
     @Override
-    public void createTicket(Ticket ticket) {
+    public final void createTicket(final Ticket ticket) {
         gitHubTicketBuilder = (GitHubTicketBuilder) ticket;
 
         gitHubIssueLabels = new ArrayList();
         gitHubIssueLabels.add(gitHubTicketBuilder.getCategory());
 
         Github github = new RtGithub(
-                new RtGithub(properties.getProperty("github.key")).entry().through(CarefulWire.class, 5000));
+                new RtGithub(properties.getProperty("github.token")).entry().through(CarefulWire.class, 5000));
 
         Repo repo = github.repos()
                 .get(new Coordinates.Simple(properties.getProperty("github.coordinates.username"),
@@ -77,7 +111,7 @@ public class GitHubTicketServiceImpl implements TicketService {
      *
      * @param gitHubTickets - a list of GitHub tickets
      */
-    public void createTickets(ArrayList<Ticket> gitHubTickets) {
+    public void createTickets(final ArrayList<Ticket> gitHubTickets) {
 
     }
 }

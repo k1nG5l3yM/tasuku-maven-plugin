@@ -1,52 +1,98 @@
+/**
+ * Checkstyle related implementations
+ */
 package za.co.kmotsepe.tasuku.checkstyle;
 
+import com.google.common.eventbus.EventBus;
 import com.puppycrawl.tools.checkstyle.api.AuditEvent;
 import com.puppycrawl.tools.checkstyle.api.AuditListener;
+import org.apache.commons.io.FilenameUtils;
 import org.apache.log4j.Logger;
+import za.co.kmotsepe.tasuku.events.impl.CheckStyleErrorEventListener;
 
 /**
  *
  * @author Kingsley Motsepe
  */
-public class CheckStyleListener implements AuditListener{
-
+public class CheckStyleListener implements AuditListener {
+    
+    /**
+     * Guava EventBus
+     */
+    EventBus eventBus;
+    
+    /**
+     * Guava EventBus Listener
+     */
+    CheckStyleErrorEventListener checkStyleErrorEventListener;
+    
+    /**
+     * Application logger
+     */
     final static Logger LOGGER = Logger.getLogger(CheckStyleListener.class);
-
+    
+    /**
+     * 
+     * @param ae AuditEvent
+     */
     @Override
-    public void auditStarted(AuditEvent ae) {
+    public final void auditStarted(final AuditEvent ae) {
         LOGGER.info("Checkstyle audit started");
     }
-
+    
+    /**
+     * 
+     * @param ae AuditEvent
+     */
     @Override
-    public void auditFinished(AuditEvent ae) {
+    public final void auditFinished(final AuditEvent ae) {
 
     }
-
+    
+    /**
+     * 
+     * @param ae AuditEvent
+     */
     @Override
-    public void fileStarted(AuditEvent ae) {
+    public final void fileStarted(final AuditEvent ae) {
         StringBuilder message = new StringBuilder();
-        LOGGER.error(message.append("File started=>").append(ae.getFileName()).toString());
+        LOGGER.info(message.append("File started=>").append(ae.getFileName()).toString());
     }
 
     /**
      *
-     * @param ae
+     * @param ae AuditEvent
      */
     @Override
-    public void fileFinished(AuditEvent ae) {
+    public final void fileFinished(final AuditEvent ae) {
 
     }
-
+    
+    /**
+     * 
+     * @param ae AuditEvent
+     */
     @Override
-    public void addError(AuditEvent ae) {
+    public final void addError(final AuditEvent ae) {
         StringBuilder message = new StringBuilder();
-        LOGGER.error(message.append("File=>").append(ae.getFileName())
-        .append("\nLine number=>").append(ae.getLine())
-        .append("\nSeverity=>").append(ae.getSeverityLevel().getName()).toString());
-    }
+        LOGGER.info(message.append("File=>").append(FilenameUtils.getName(ae.getFileName()))
+                .append("\nLine number=>").append(ae.getLine())
+                .append("\nSeverity=>").append(ae.getSeverityLevel().getName()));
 
+        eventBus = new EventBus();
+        checkStyleErrorEventListener = new CheckStyleErrorEventListener();
+
+        eventBus.register(checkStyleErrorEventListener);
+        eventBus.post(ae);
+    }
+    
+    /**
+     * 
+     * @param ae Checkstyle audit event
+     * @param thrwbl exception 
+     */
     @Override
-    public void addException(AuditEvent ae, Throwable thrwbl) {
-       LOGGER.error(thrwbl.getMessage());
+    public final void addException(final AuditEvent ae, final Throwable thrwbl) {
+        LOGGER.error(thrwbl.getMessage());
     }
 }
