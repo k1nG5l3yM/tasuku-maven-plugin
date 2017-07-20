@@ -11,6 +11,7 @@ import java.net.URLClassLoader;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
+import org.apache.log4j.Logger;
 
 import org.aspectj.weaver.loadtime.WeavingURLClassLoader;
 import org.junit.After;
@@ -38,7 +39,13 @@ import org.junit.runners.model.TestClass;
  * @author David Zhang
  */
 public class AspectJUnit4Runner extends BlockJUnit4ClassRunner {
-
+    
+    /**
+     * Application logger
+     */
+    private static final Logger LOGGER = 
+            Logger.getLogger(AspectJUnit4Runner.class);
+    
     /**
      *
      */
@@ -56,7 +63,7 @@ public class AspectJUnit4Runner extends BlockJUnit4ClassRunner {
      */
     public AspectJUnit4Runner(final Class<?> clazz) throws InitializationError {
         super(clazz);
-        System.out.println("AspectJunit4Runner class loaded");
+        LOGGER.info("AspectJunit4Runner class loaded");
     }
 
     /**
@@ -245,7 +252,7 @@ public class AspectJUnit4Runner extends BlockJUnit4ClassRunner {
         Class<T> loaded;
         try {
             loaded = (Class<T>) Class.forName(clazz.getName(), true, cl);
-            System.out.println("Class " + loaded.getCanonicalName());
+            LOGGER.info("Class " + loaded.getCanonicalName());
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }

@@ -12,6 +12,7 @@ import lombok.Setter;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.LineIterator;
+import org.apache.log4j.Logger;
 import za.co.kmotsepe.tasuku.Issue;
 
 /**
@@ -19,7 +20,12 @@ import za.co.kmotsepe.tasuku.Issue;
  * @author Kingsley Motsepe
  */
 public class CheckStyleIssue extends Issue {
-
+    
+    /**
+     * Application logger
+     */
+    private static final Logger LOGGER = Logger.getLogger(CheckStyleIssue.class);
+    
     /**
      * Author logged issue will be checkstyle
      */
@@ -85,7 +91,7 @@ public class CheckStyleIssue extends Issue {
                 .append("\nPackage: ")
                 .append(getPackage(javaFile)).toString());
 
-        System.out.println("Issue properties: " + this);
+        LOGGER.info("Issue properties: " + this);
     }
 
     /**

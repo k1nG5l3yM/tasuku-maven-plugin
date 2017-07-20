@@ -27,6 +27,7 @@ public @interface AspectJConfig {
      * {@code /home/joe/test/META-INF/aop.xml} then add {@code /home/joe/test}
      * as classpathAddition. Depending on your project setup this might also
      * work with relative parts.
+     * @return 
      */
     String[] classpathAdditions() default "";
 }

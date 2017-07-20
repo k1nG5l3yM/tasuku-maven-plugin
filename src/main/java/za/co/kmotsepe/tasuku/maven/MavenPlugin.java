@@ -14,8 +14,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import lombok.Getter;
-import lombok.Setter;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
@@ -29,6 +27,12 @@ import za.co.kmotsepe.tasuku.checkstyle.CheckStyleListener;
  */
 @Mojo(name = "codecheck")
 public class MavenPlugin extends AbstractMojo {
+
+    /**
+     * Application logger
+     */
+    private static final org.apache.log4j.Logger LOGGER
+            = org.apache.log4j.Logger.getLogger(MavenPlugin.class);
 
     /**
      *
@@ -48,16 +52,16 @@ public class MavenPlugin extends AbstractMojo {
         //FIX-ME There should be an elegant way of doing this since a lot of 
         //plugins will be executed from within here
         File baseFolder = new File("src/");
-        System.out.println("base folder: " + baseFolder.getAbsolutePath());
+        LOGGER.info("base folder: " + baseFolder.getAbsolutePath());
 
         List files = new ArrayList();
         File testSourceFolder = new File(baseFolder.getAbsoluteFile()
                 .toString());
-        System.out.println("Checkstyle test folder: "
+        LOGGER.info("Checkstyle test folder: "
                 + testSourceFolder.getAbsolutePath());
 
         listFiles(files, testSourceFolder, "java");
-        System.out.println("Found " + files.size() + " Java source files.");
+        LOGGER.info("Found " + files.size() + " Java source files.");
 
         ByteArrayOutputStream sos = new ByteArrayOutputStream();
 
@@ -75,8 +79,8 @@ public class MavenPlugin extends AbstractMojo {
 
             checker.destroy();
 
-            System.out.println("Found " + errors + " check style errors.");
-            System.out.println(sos.toString());
+            LOGGER.debug("Found " + errors + " check style errors.");
+            LOGGER.debug(sos.toString());
         } catch (CheckstyleException ex) {
             Logger.getLogger(MavenPlugin.class.getName())
                     .log(Level.SEVERE, null, ex);

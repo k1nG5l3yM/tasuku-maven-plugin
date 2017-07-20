@@ -4,6 +4,7 @@
 package za.co.kmotsepe.tasuku.aspectj;
 
 import com.puppycrawl.tools.checkstyle.api.AuditEvent;
+import org.apache.log4j.Logger;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -16,6 +17,11 @@ import za.co.kmotsepe.tasuku.checkstyle.CheckStyleListener;
  */
 @Aspect
 public class CheckStyleListenerAspectJ {
+    
+    /**
+     * Application logger
+     */
+    private static final Logger LOGGER = Logger.getLogger(CheckStyleListenerAspectJ.class);
 
     /**
      *
@@ -48,7 +54,7 @@ public class CheckStyleListenerAspectJ {
         args[2] = ae.getMessage();
         String result = (String) joinPoint.proceed(args);
 
-        System.err.println("intercepted addError" + args[2]);
+        LOGGER.info("intercepted addError" + args[2]);
 
         return result;
     }

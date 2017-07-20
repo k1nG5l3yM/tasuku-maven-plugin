@@ -6,10 +6,7 @@ package za.co.kmotsepe.tasuku.events.impl;
 import com.google.common.eventbus.Subscribe;
 import com.puppycrawl.tools.checkstyle.api.AuditEvent;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.util.concurrent.TimeUnit;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import za.co.kmotsepe.tasuku.checkstyle.CheckStyleIssue;
 import za.co.kmotsepe.tasuku.service.impl.GitHubTicketServiceImpl;
 import za.co.kmotsepe.tasuku.tickets.IssueCategoryType;
@@ -21,6 +18,12 @@ import za.co.kmotsepe.tasuku.tickets.impl.GitHubTicketBuilder;
  * @author Kingsley Motsepe
  */
 public class CheckStyleErrorEventListener {
+
+    /**
+     * Application logger
+     */
+    private static final org.apache.log4j.Logger LOGGER
+            = org.apache.log4j.Logger.getLogger(CheckStyleErrorEventListener.class);
 
     /**
      *
@@ -48,21 +51,9 @@ public class CheckStyleErrorEventListener {
 
             TimeUnit.SECONDS.sleep(2);
 
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(CheckStyleErrorEventListener.class.getName())
-                    .log(Level.SEVERE, null, ex);
-        } catch (MalformedURLException ex) {
-            Logger.getLogger(CheckStyleErrorEventListener.class.getName())
-                    .log(Level.SEVERE, null, ex);
-        } catch (ClassCastException ex) {
-            Logger.getLogger(CheckStyleErrorEventListener.class.getName())
-                    .log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(CheckStyleErrorEventListener.class.getName())
-                    .log(Level.SEVERE, null, ex);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(CheckStyleErrorEventListener.class.getName())
-                    .log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException | ClassCastException | IOException
+                | InterruptedException ex) {
+            LOGGER.error(ex);
         }
     }
 }

@@ -18,7 +18,11 @@ public class TicketImpl extends BaseObject implements Ticket {
      * 
      */
     public TicketImpl(){}
-
+    
+    /**
+     * 
+     * @param ticketBuilder 
+     */
     public TicketImpl(TicketBuilder ticketBuilder){
         this.Id = ticketBuilder.getId();
         this.description = ticketBuilder.getDescription();

@@ -12,10 +12,6 @@ import com.jcabi.github.wire.CarefulWire;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import lombok.Getter;
-import lombok.Setter;
 
 import za.co.kmotsepe.tasuku.service.TicketService;
 import za.co.kmotsepe.tasuku.tickets.Ticket;
@@ -30,28 +26,15 @@ import za.co.kmotsepe.tasuku.util.PropertiesLoader;
 public class GitHubTicketServiceImpl implements TicketService {
 
     /**
-     * Ticket builder for the github service
+     * Application logger
      */
-    @Getter
-    @Setter
-    private GitHubTicketBuilder gitHubTicketBuilder;
-
-    /**
-     * issue labels
-     */
-    @Getter
-    @Setter
-    private ArrayList gitHubIssueLabels;
+    private static final org.apache.log4j.Logger LOGGER
+            = org.apache.log4j.Logger.getLogger(GitHubTicketServiceImpl.class);
 
     /**
      * application properties
      */
-    private Properties properties;
-
-    /**
-     * list of github tickets
-     */
-    private ArrayList<Ticket> githubTickets;
+    private final Properties properties;
 
     /**
      *
@@ -63,29 +46,13 @@ public class GitHubTicketServiceImpl implements TicketService {
 
     /**
      *
-     * @param gitHubTicket
-     */
-    public GitHubTicketServiceImpl(final Ticket gitHubTicket) {
-
-    }
-
-    /**
-     *
-     * @param gitHubTickets
-     */
-    public GitHubTicketServiceImpl(final ArrayList<Ticket> gitHubTickets) {
-
-    }
-
-    /**
-     *
      * @param ticket
      */
     @Override
     public final void createTicket(final Ticket ticket) {
-        gitHubTicketBuilder = (GitHubTicketBuilder) ticket;
+        GitHubTicketBuilder gitHubTicketBuilder = (GitHubTicketBuilder) ticket;
+        ArrayList gitHubIssueLabels = new ArrayList();
 
-        gitHubIssueLabels = new ArrayList();
         gitHubIssueLabels.add(gitHubTicketBuilder.getCategory());
 
         Github github = new RtGithub(
@@ -105,17 +72,7 @@ public class GitHubTicketServiceImpl implements TicketService {
                             gitHubTicketBuilder.getDescription());
             issue.labels().add(gitHubIssueLabels);
         } catch (IOException ex) {
-            Logger.getLogger(GitHubTicketServiceImpl.class.getName())
-                    .log(Level.SEVERE, null, ex);
+            LOGGER.error(ex);
         }
-
-    }
-
-    /**
-     *
-     * @param gitHubTickets - a list of GitHub tickets
-     */
-    public void createTickets(final ArrayList<Ticket> gitHubTickets) {
-
     }
 }

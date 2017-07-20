@@ -181,7 +181,8 @@
                 <version>2.1.3</version>
                 <configuration>
                     <useSystemClassLoader>true</useSystemClassLoader>
-                    <useManifestOnlyJar>false</useManifestOnlyJar>                  
+                    <useManifestOnlyJar>false</useManifestOnlyJar>
+                    <skip>true</skip>                  
                 </configuration>
             </plugin>
         </plugins>

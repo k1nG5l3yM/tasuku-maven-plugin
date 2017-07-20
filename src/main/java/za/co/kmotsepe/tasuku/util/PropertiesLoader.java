@@ -2,12 +2,19 @@ package za.co.kmotsepe.tasuku.util;
 
 import java.io.IOException;
 import java.util.Properties;
+import org.apache.log4j.Logger;
 
 /**
  *
  * @author Kingsley Motsepe
  */
 public class PropertiesLoader {
+
+    /**
+     * Application logger
+     */
+    private static final Logger LOGGER
+            = Logger.getLogger(PropertiesLoader.class);
 
     Properties properties = null;
     static PropertiesLoader propertiesLoader;
@@ -37,7 +44,7 @@ public class PropertiesLoader {
         //TODO should property names be hardcoded? maybe relative to app
         properties.load(getClass().getClassLoader()
                 .getResourceAsStream("application.properties"));
-        System.out.println("Properties empty?: " + properties.isEmpty());
+        LOGGER.debug("Properties empty?: " + properties.isEmpty());
 
         return properties;
     }
