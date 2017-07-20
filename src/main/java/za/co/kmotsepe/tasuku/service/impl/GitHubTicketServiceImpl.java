@@ -89,11 +89,14 @@ public class GitHubTicketServiceImpl implements TicketService {
         gitHubIssueLabels.add(gitHubTicketBuilder.getCategory());
 
         Github github = new RtGithub(
-                new RtGithub(properties.getProperty("github.token")).entry().through(CarefulWire.class, 5000));
+                new RtGithub(properties.getProperty("github.token"))
+                        .entry().through(CarefulWire.class, 5000));
 
         Repo repo = github.repos()
-                .get(new Coordinates.Simple(properties.getProperty("github.coordinates.username"),
-                        properties.getProperty("github.coordinates.repository")));
+                .get(new Coordinates.Simple(properties
+                        .getProperty("github.coordinates.username"),
+                        properties
+                                .getProperty("github.coordinates.repository")));
         Issue issue;
 
         try {
@@ -102,7 +105,8 @@ public class GitHubTicketServiceImpl implements TicketService {
                             gitHubTicketBuilder.getDescription());
             issue.labels().add(gitHubIssueLabels);
         } catch (IOException ex) {
-            Logger.getLogger(GitHubTicketServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GitHubTicketServiceImpl.class.getName())
+                    .log(Level.SEVERE, null, ex);
         }
 
     }

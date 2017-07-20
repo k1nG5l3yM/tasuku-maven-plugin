@@ -1,35 +1,35 @@
+/**
+ * Base objects
+ */
 package za.co.kmotsepe.tasuku;
+
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  *
  * @author Kingsley Motsepe
  */
-public class Issue extends BaseObject{
-    String name;
-    String description;
+public class Issue extends BaseObject {
+
+    /**
+     * issue name
+     */
+    @Getter
+    @Setter
+    private String name;
+
+    /**
+     * Issue description
+     */
+    @Getter
+    @Setter
+    private String description;
+
+    /**
+     * issue severity
+     */
+    @Getter
+    @Setter
     String severity;
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public void setSeverity(String severity){
-        this.severity = severity;
-    }
-    
-    public String getSeverity(){
-        return severity;
-    }
 }

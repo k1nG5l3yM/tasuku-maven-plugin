@@ -1,3 +1,6 @@
+/**
+ * Various code analyser listeners
+ */
 package za.co.kmotsepe.tasuku.events;
 
 /**
@@ -5,16 +8,16 @@ package za.co.kmotsepe.tasuku.events;
  * @author Kingsley Motsepe
  */
 public interface Event {
-    
+
     /**
-     * 
-     * @param message 
+     *
+     * @param message
      */
-    public void addMessage(Object message);
-    
+    void addMessage(Object message);
+
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
-    public Object getMessage();
+    Object getMessage();
 }

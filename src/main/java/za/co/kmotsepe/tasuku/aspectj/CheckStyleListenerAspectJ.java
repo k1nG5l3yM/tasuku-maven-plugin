@@ -1,3 +1,6 @@
+/**
+ * AspectJ classes - Currently for checking the CheckStyleListener AuditEvent
+ */
 package za.co.kmotsepe.tasuku.aspectj;
 
 import com.puppycrawl.tools.checkstyle.api.AuditEvent;
@@ -14,21 +17,39 @@ import za.co.kmotsepe.tasuku.checkstyle.CheckStyleListener;
 @Aspect
 public class CheckStyleListenerAspectJ {
 
+    /**
+     *
+     * @param ae
+     * @param checkStyleListener
+     */
     @Pointcut("call(String addError(AuditEvent)) && args(ae) && target(callee)")
-    public void addError(AuditEvent ae, CheckStyleListener checkStyleListener) {
+    public final void addError(final AuditEvent ae,
+            final CheckStyleListener checkStyleListener) {
     }
 
+    /**
+     *
+     * @param joinPoint
+     * @param ae
+     * @param callee
+     * @return
+     * @throws Throwable
+     */
     @Around("addError(ae, callee)")
-    public String upper(ProceedingJoinPoint joinPoint, 
-            AuditEvent ae, CheckStyleListener callee) throws Throwable {
-        Object[] args = new Object[3];
+    public final String upper(final ProceedingJoinPoint joinPoint,
+            final AuditEvent ae,
+            final CheckStyleListener callee) throws Throwable {
+
+        int argsCount = 3;
+        Object[] args = new Object[argsCount];
+
         args[0] = joinPoint.getThis();
         args[1] = callee;
         args[2] = ae.getMessage();
         String result = (String) joinPoint.proceed(args);
-        
+
         System.err.println("intercepted addError" + args[2]);
-        
+
         return result;
     }
 }

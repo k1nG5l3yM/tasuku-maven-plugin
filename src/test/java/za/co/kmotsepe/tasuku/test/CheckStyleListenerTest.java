@@ -1,3 +1,6 @@
+/**
+ * Unit tests
+ */
 package za.co.kmotsepe.tasuku.test;
 
 import java.io.File;
@@ -14,14 +17,19 @@ import za.co.kmotsepe.tasuku.maven.MavenPlugin;
  *
  * @author Kingsley Motsepe
  */
-//FIX-ME This does not load with old version of surefire maven plugin. New version breaks code too.
+//FIX-ME This does not load with old version of surefire maven plugin. 
+//New version breaks code too.
 @AspectJConfig(classpathAdditions = "src/main/java")
 @RunWith(AspectJUnit4Runner.class)
-public class CheckStyleListenerTest extends AbstractMojoTestCase{
-            
+public class CheckStyleListenerTest extends AbstractMojoTestCase {
+
+    /**
+     *
+     * @throws Exception
+     */
     @Before
     @Override
-    public void setUp() throws Exception {
+    public final void setUp() throws Exception {
         super.setUp();
     }
 
@@ -30,7 +38,7 @@ public class CheckStyleListenerTest extends AbstractMojoTestCase{
      */
     @After
     @Override
-    public void tearDown() {
+    public final void tearDown() {
 
     }
 
@@ -40,7 +48,7 @@ public class CheckStyleListenerTest extends AbstractMojoTestCase{
      * @throws java.lang.Exception
      */
     @Test
-    public void test_add_error() throws Exception {
+    public final void testAddError() throws Exception {
 
         File pom = new File("src/test/resources/pom.xml");
         assertNotNull("POM file should not be null", pom);
@@ -50,8 +58,9 @@ public class CheckStyleListenerTest extends AbstractMojoTestCase{
         assertTrue("POM file should exist", pom.exists());
 
         MavenPlugin mavenPlugin = (MavenPlugin) lookupMojo("codecheck", pom);
-        assertNotNull("Maven plugin should be loadable from the POM file", mavenPlugin);
+        assertNotNull("Maven plugin should be loadable from the POM file",
+                mavenPlugin);
 
-        mavenPlugin.execute();   
+        mavenPlugin.execute();
     }
 }

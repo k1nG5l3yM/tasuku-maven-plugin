@@ -9,7 +9,8 @@ import za.co.kmotsepe.tasuku.tickets.Ticket;
  *
  * @author Kingsley Motsepe
  */
-public class TicketBuilder extends TicketImpl { //TODO why is this not abstract? Will look at later
+//TODO why is this not abstract? Will look at later
+public class TicketBuilder extends TicketImpl {
 
     /**
      *

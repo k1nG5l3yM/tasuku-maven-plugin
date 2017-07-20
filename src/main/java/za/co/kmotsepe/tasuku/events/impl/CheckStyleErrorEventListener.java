@@ -27,7 +27,7 @@ public class CheckStyleErrorEventListener {
      * @param auditEvent Checkstyle audit event
      */
     @Subscribe
-    public void recordError(AuditEvent auditEvent) {
+    public final void recordError(AuditEvent auditEvent) {
         GitHubTicketServiceImpl gitHubTicketService;
         GitHubTicketBuilder gitHubTicketBuilder;
         CheckStyleIssue checkStyleIssue;
@@ -49,15 +49,20 @@ public class CheckStyleErrorEventListener {
             TimeUnit.SECONDS.sleep(2);
 
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(CheckStyleErrorEventListener.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CheckStyleErrorEventListener.class.getName())
+                    .log(Level.SEVERE, null, ex);
         } catch (MalformedURLException ex) {
-            Logger.getLogger(CheckStyleErrorEventListener.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CheckStyleErrorEventListener.class.getName())
+                    .log(Level.SEVERE, null, ex);
         } catch (ClassCastException ex) {
-            Logger.getLogger(CheckStyleErrorEventListener.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CheckStyleErrorEventListener.class.getName())
+                    .log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
-            Logger.getLogger(CheckStyleErrorEventListener.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CheckStyleErrorEventListener.class.getName())
+                    .log(Level.SEVERE, null, ex);
         } catch (InterruptedException ex) {
-            Logger.getLogger(CheckStyleErrorEventListener.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CheckStyleErrorEventListener.class.getName())
+                    .log(Level.SEVERE, null, ex);
         }
     }
 }

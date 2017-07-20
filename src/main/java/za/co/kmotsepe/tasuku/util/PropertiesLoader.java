@@ -1,6 +1,5 @@
 package za.co.kmotsepe.tasuku.util;
 
-import com.google.gson.Gson;
 import java.io.IOException;
 import java.util.Properties;
 
@@ -36,7 +35,8 @@ public class PropertiesLoader {
      */
     public Properties loadProperties() throws IOException {
         //TODO should property names be hardcoded? maybe relative to app
-        properties.load(getClass().getClassLoader().getResourceAsStream("application.properties"));
+        properties.load(getClass().getClassLoader()
+                .getResourceAsStream("application.properties"));
         System.out.println("Properties empty?: " + properties.isEmpty());
 
         return properties;
