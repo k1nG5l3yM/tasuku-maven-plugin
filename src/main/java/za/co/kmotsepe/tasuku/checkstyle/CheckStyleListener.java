@@ -52,7 +52,7 @@ public class CheckStyleListener implements AuditListener {
      */
     @Override
     public final void auditFinished(final AuditEvent ae) {
-
+        LOGGER.info("Checkstyle audit finished");
     }
 
     /**
@@ -72,7 +72,7 @@ public class CheckStyleListener implements AuditListener {
      */
     @Override
     public final void fileFinished(final AuditEvent ae) {
-
+        LOGGER.info("Checkstyle file finished");
     }
 
     /**

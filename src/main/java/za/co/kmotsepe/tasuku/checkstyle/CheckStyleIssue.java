@@ -20,12 +20,12 @@ import za.co.kmotsepe.tasuku.Issue;
  * @author Kingsley Motsepe
  */
 public class CheckStyleIssue extends Issue {
-    
+
     /**
      * Application logger
      */
     private static final Logger LOGGER = Logger.getLogger(CheckStyleIssue.class);
-    
+
     /**
      * Author logged issue will be checkstyle
      */
@@ -56,14 +56,14 @@ public class CheckStyleIssue extends Issue {
     /**
      *
      * @param auditEvent
-     * @throws ClassNotFoundException
      * @throws MalformedURLException
-     * @throws ClassCastException
+     * @throws java.lang.ClassNotFoundException
      * @throws IOException
      */
     public CheckStyleIssue(final AuditEvent auditEvent)
-            throws ClassNotFoundException, MalformedURLException,
-            ClassCastException, IOException {
+            throws MalformedURLException,
+            IOException,
+            ClassNotFoundException {
         populateIssue(auditEvent);
     }
 
@@ -72,12 +72,11 @@ public class CheckStyleIssue extends Issue {
      * @param auditEvent Checkstyle audit event
      * @throws ClassNotFoundException
      * @throws MalformedURLException
-     * @throws ClassCastException
      * @throws IOException
      */
     final void populateIssue(final AuditEvent auditEvent)
             throws ClassNotFoundException, MalformedURLException,
-            ClassCastException, IOException {
+            IOException {
 
         bufferedDescription = new StringBuilder();
 

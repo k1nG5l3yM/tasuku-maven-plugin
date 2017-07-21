@@ -7,7 +7,7 @@ import za.co.kmotsepe.tasuku.tickets.Ticket;
  * @author Kingsley Motsepe
  */
 public class TicketImpl extends BaseObject implements Ticket {
-    int Id;
+    int id;
     String name;
     String description;
     String authorName;
@@ -24,7 +24,7 @@ public class TicketImpl extends BaseObject implements Ticket {
      * @param ticketBuilder 
      */
     public TicketImpl(TicketBuilder ticketBuilder){
-        this.Id = ticketBuilder.getId();
+        this.id = ticketBuilder.getId();
         this.description = ticketBuilder.getDescription();
         this.authorName = ticketBuilder.getAuthorName();
         this.severity = ticketBuilder.getSeverity();
@@ -34,7 +34,7 @@ public class TicketImpl extends BaseObject implements Ticket {
      * @return Ticket ID
      */
     public int getId(){
-        return Id;
+        return id;
     }
     
     /**

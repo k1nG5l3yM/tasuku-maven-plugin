@@ -27,7 +27,7 @@ public class PropertiesLoader {
         properties = new Properties();
     }
 
-    public static PropertiesLoader getInstance() throws IOException {
+    public static PropertiesLoader getInstance() {
 
         if (propertiesLoader == null) {
             return new PropertiesLoader();

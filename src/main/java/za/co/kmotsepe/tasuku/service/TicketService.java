@@ -7,9 +7,8 @@ import za.co.kmotsepe.tasuku.tickets.Ticket;
 
 /**
  * @author Kingsley Motsepe
- * @param <T>
  */
-public interface TicketService<T> {
+public interface TicketService {
 
     /**
      * @param ticket

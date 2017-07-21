@@ -38,8 +38,8 @@ public class CheckStyleListenerTest extends AbstractMojoTestCase {
      */
     @After
     @Override
-    public final void tearDown() {
-
+    public final void tearDown() throws Exception {
+        super.tearDown();
     }
 
     /**
